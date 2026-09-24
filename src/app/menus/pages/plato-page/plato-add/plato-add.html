@@ -1,0 +1,41 @@
+<div class="bg-white rounded-2xl p-6 border-2 border-blue-200 shadow-sm space-y-5">
+  <h3 class="text-base font-bold text-slate-800">Nuevo plato</h3>
+
+  <div class="flex gap-4 items-start">
+    <!-- Cargar Foto -->
+    <div
+      class="w-24 h-24 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-slate-300 text-slate-400 transition-colors">
+      <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+        <circle cx="12" cy="13" r="3" />
+      </svg>
+      <span class="text-xs">Foto</span>
+    </div>
+
+    <!-- Campos de Texto y Categoría -->
+    <div class="flex-1 space-y-4">
+      <input type="text" placeholder="Nombre del plato"
+        class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
+
+      <div>
+        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">CATEGORÍA</label>
+        <div class="flex gap-2">
+          <button type="button"
+            class="px-5 py-1.5 bg-blue-100 text-blue-700 text-sm font-medium rounded-xl border border-blue-200">Entrada</button>
+          <button type="button"
+            class="px-5 py-1.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50 transition-colors">Fondo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Acciones del Formulario -->
+  <div class="flex justify-end gap-3 pt-2">
+    <button type="button"
+      class="px-5 py-2 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors">Cancelar</button>
+    <button type="button"
+      class="px-5 py-2 bg-black text-white rounded-xl text-sm font-bold hover:bg-slate-800 transition-colors">Guardar
+      plato</button>
+  </div>
+</div>

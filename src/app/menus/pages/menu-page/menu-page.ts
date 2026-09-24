@@ -12,34 +12,30 @@ import { DesplegableComponent } from '../../components/desplegable/desplegable.c
   templateUrl: './menu-page.html',
 })
 export default class MenuPage {
-  public menuservice =inject(MenusService);
+  public menuservice = inject(MenusService);
 
   dia = input.required();
   mostrarBuscador = signal<boolean>(false);
   categoriaSeleccionada = signal<number | null>(null);
-  platoSeleccionado = signal<Map<number,Plato>>(new Map());
-
- //busqueda = signal<string>('');
-
+  platoSeleccionado = signal<Map<number, Plato>>(new Map());
 
 
   entradaSeleccionada = computed(() =>
     this.platoSeleccionado()?.get(1) ?? null
   );
 
-  fondoSeleccionado = computed( ()=>
-   this.platoSeleccionado()?.get(2)?? null
+  fondoSeleccionado = computed(() =>
+    this.platoSeleccionado()?.get(2) ?? null
   );
 
-  toggleBuscador(categoria:number): void {
+  toggleBuscador(categoria: number): void {
 
-    if(this.categoriaSeleccionada()==categoria && this.mostrarBuscador() ){
+    if (this.categoriaSeleccionada() == categoria && this.mostrarBuscador()) {
       this.mostrarBuscador.set(false);
-    }else{
+    } else {
       this.mostrarBuscador.set(true);
       this.categoriaSeleccionada.set(categoria);
     }
-    //this.busqueda.set('');
   }
 
   seleccionarPlato(plato: Plato): void {
@@ -67,19 +63,19 @@ export default class MenuPage {
   }
 
 
-quitarPlato(idcategoria:number):void{
+  quitarPlato(idcategoria: number): void {
 
-  const platoquitar=this.platoSeleccionado().get(idcategoria);
-  if(platoquitar){
-    this.menuservice.liberarPlato(platoquitar.id)
+    const platoquitar = this.platoSeleccionado().get(idcategoria);
+    if (platoquitar) {
+      this.menuservice.liberarPlato(platoquitar.id)
 
-    this.platoSeleccionado.update( plato=>{
-      const nuevomapa= new Map<number,Plato>(plato);
-      nuevomapa.delete(idcategoria);
-      return nuevomapa;
-    });
+      this.platoSeleccionado.update(plato => {
+        const nuevomapa = new Map<number, Plato>(plato);
+        nuevomapa.delete(idcategoria);
+        return nuevomapa;
+      });
+    }
   }
-}
 
 
 
