@@ -165,8 +165,10 @@
               <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
             </svg>
           </button>
-          @if(mostrarBotones()){
-                <!-- Menú Desplegable Flotante -->
+
+          @if(mostrarBotones())
+          {
+          <!-- Menú Desplegable Flotante -->
           <div class="absolute right-0 top-9 w-36 bg-white border border-slate-200 rounded-xl shadow-lg py-1.5 z-20">
             <!-- Opción Editar -->
             <button type="button" class="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 transition-colors">
