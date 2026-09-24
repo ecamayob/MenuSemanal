@@ -1,0 +1,9 @@
+
+<div class="m-4">
+@for (item of semana(); track item.id) {
+  <div class="m-4">
+    <menu-page [dia]="item.nombre"/>
+  </div>
+  }
+</div>
+

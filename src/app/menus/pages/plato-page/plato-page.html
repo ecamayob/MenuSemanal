@@ -1,0 +1,198 @@
+<div class="max-w-4xl mx-auto p-6 space-y-6 bg-slate-50 min-h-screen">
+
+  <!-- Barra Superior -->
+  <div class="flex items-center justify-between gap-4">
+    <div class="relative w-64">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </span>
+      <input type="text" placeholder="Buscar plato" class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
+    </div>
+
+    <button type="button" class="flex items-center gap-2 px-4 py-2 border border-blue-300 rounded-xl text-blue-600 font-medium text-sm hover:bg-blue-50 transition-colors">
+      <span>+</span> Agregar plato
+    </button>
+  </div>
+
+  <!-- Formulario Nuevo Plato -->
+  <div class="bg-white rounded-2xl p-6 border-2 border-blue-200 shadow-sm space-y-5">
+    <h3 class="text-base font-bold text-slate-800">Nuevo plato</h3>
+
+    <div class="flex gap-4 items-start">
+      <!-- Cargar Foto -->
+      <div class="w-24 h-24 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-slate-300 text-slate-400 transition-colors">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+          <circle cx="12" cy="13" r="3"/>
+        </svg>
+        <span class="text-xs">Foto</span>
+      </div>
+
+      <!-- Campos de Texto y Categoría -->
+      <div class="flex-1 space-y-4">
+        <input type="text" placeholder="Nombre del plato" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
+
+        <div>
+          <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">CATEGORÍA</label>
+          <div class="flex gap-2">
+            <button type="button" class="px-5 py-1.5 bg-blue-100 text-blue-700 text-sm font-medium rounded-xl border border-blue-200">Entrada</button>
+            <button type="button" class="px-5 py-1.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50 transition-colors">Fondo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones del Formulario -->
+    <div class="flex justify-end gap-3 pt-2">
+      <button type="button" class="px-5 py-2 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors">Cancelar</button>
+      <button type="button" class="px-5 py-2 bg-black text-white rounded-xl text-sm font-bold hover:bg-slate-800 transition-colors">Guardar plato</button>
+    </div>
+  </div>
+
+  <!-- Catálogo de Platos -->
+  <div class="space-y-3">
+    <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider">CATÁLOGO (6)</span>
+
+    <div class="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-visible shadow-sm">
+
+      <!-- Fila 1: Ceviche (Menú cerrado) -->
+      <div class="flex items-center justify-between p-3.5 px-4 hover:bg-slate-50/60 transition-colors relative">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-100/70 flex items-center justify-center text-emerald-600 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11c-1.5 0-3-1.5-3-3s1.5-3 3-3 4 2 4 3-2.5 3-4 3zM3 12c3 0 6-3 9-3s5 2 7 2m-16 1c3 0 6 3 9 3s5-2 7-2"/>
+            </svg>
+          </div>
+          <span class="text-sm font-bold text-slate-800 tracking-tight">Ceviche</span>
+        </div>
+
+        <div class="relative flex items-center gap-2">
+          <span class="px-3.5 py-1 text-xs font-semibold rounded-full tracking-wide bg-emerald-100/80 text-emerald-700">
+            Fondo
+          </span>
+
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors focus:outline-none">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Fila 2: Papa a la huancaína (Menú abierto de ejemplo) -->
+      <div class="flex items-center justify-between p-3.5 px-4 hover:bg-slate-50/60 transition-colors relative">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-amber-100/70 flex items-center justify-center text-amber-700 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m-4-2v2m8-2v2M4 11h16a1 1 0 011 1v1a7 7 0 01-14 0v-1a1 1 0 011-1z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-bold text-slate-800 tracking-tight">Papa a la huancaína</span>
+        </div>
+
+        <div class="relative flex items-center gap-2">
+          <span class="px-3.5 py-1 text-xs font-semibold rounded-full tracking-wide bg-amber-100/80 text-amber-800">
+            Entrada
+          </span>
+
+          <!-- Botón 3 Puntos -->
+          <button type="button" class="p-1.5 rounded-lg text-slate-600 bg-slate-100 transition-colors focus:outline-none">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+          </button>
+
+          <!-- Menú Desplegable Flotante -->
+          <div class="absolute right-0 top-9 w-36 bg-white border border-slate-200 rounded-xl shadow-lg py-1.5 z-20">
+            <!-- Opción Editar -->
+            <button type="button" class="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 transition-colors">
+              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+              Editar
+            </button>
+
+            <!-- Opción Eliminar -->
+            <button type="button" class="w-full text-left px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition-colors">
+              <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      @for (item of this.menuservice.platos(); track item.id) {
+        <div class="flex items-center justify-between p-3.5 px-4 hover:bg-slate-50/60 transition-colors relative">
+        <div class="flex items-center gap-3">
+            @if(item.categoria===1){
+               <div class="w-10 h-10 rounded-2xl bg-amber-100/70 flex items-center justify-center text-amber-700 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m-4-2v2m8-2v2M4 11h16a1 1 0 011 1v1a7 7 0 01-14 0v-1a1 1 0 011-1z"/>
+                    </svg>
+                </div>
+            }
+            @else{
+            <div class="w-10 h-10 rounded-2xl bg-emerald-100/70 flex items-center justify-center text-emerald-600 shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11c-1.5 0-3-1.5-3-3s1.5-3 3-3 4 2 4 3-2.5 3-4 3zM3 12c3 0 6-3 9-3s5 2 7 2m-16 1c3 0 6 3 9 3s5-2 7-2"/>
+                </svg>
+            </div>
+          }
+
+          <span class="text-sm font-bold text-slate-800 tracking-tight">{{item.nombre}}</span>
+        </div>
+
+        <div class="relative flex items-center gap-2">
+          @if(item.categoria===1){
+            <span class="px-3.5 py-1 text-xs font-semibold rounded-full tracking-wide bg-amber-100/80 text-amber-800">
+              Entrada
+            </span>
+          }@else{
+              <span class="px-3.5 py-1 text-xs font-semibold rounded-full tracking-wide bg-emerald-100/80 text-emerald-700">
+                Fondo
+              </span>
+          }
+
+
+
+          <!-- Botón 3 Puntos -->
+          <button type="button" class="p-1.5 rounded-lg text-slate-600 bg-slate-100 transition-colors focus:outline-none">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+          </button>
+          @if(mostrarBotones()){
+                <!-- Menú Desplegable Flotante -->
+          <div class="absolute right-0 top-9 w-36 bg-white border border-slate-200 rounded-xl shadow-lg py-1.5 z-20">
+            <!-- Opción Editar -->
+            <button type="button" class="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 transition-colors">
+              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+              Editar
+            </button>
+
+            <!-- Opción Eliminar -->
+            <button type="button" class="w-full text-left px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition-colors">
+              <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+              Eliminar
+            </button>
+          </div>
+          }
+
+
+        </div>
+      </div>
+
+      }
+
+    </div>
+  </div>
+
+</div>
