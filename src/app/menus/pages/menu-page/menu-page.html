@@ -1,5 +1,10 @@
+
+
+
+@for (item of this.menuservice.semana(); track item.id) {
+
 <div class="w-full max-w-xl rounded-2xl border border-blue-400 bg-white p-4 sm:p-5 shadow-sm transition-all">
-  <h3 class="mb-3 sm:mb-4 text-base font-bold text-slate-900">{{dia()}}</h3>
+  <h3 class="mb-3 sm:mb-4 text-base font-bold text-slate-900">{{item.nombre}}</h3>
 
   <!-- Fila de platillos: 1 columna en móvil, 2 columnas desde pantallas 'sm' -->
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -69,3 +74,4 @@
 
 }
 </div>
+}

@@ -14,7 +14,6 @@ import { DesplegableComponent } from '../../components/desplegable/desplegable.c
 export default class MenuPage {
   public menuservice = inject(MenusService);
 
-  dia = input.required();
   mostrarBuscador = signal<boolean>(false);
   categoriaSeleccionada = signal<number | null>(null);
   platoSeleccionado = signal<Map<number, Plato>>(new Map());

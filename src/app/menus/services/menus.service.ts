@@ -1,5 +1,6 @@
 import { Injectable, Service, signal } from '@angular/core';
 import { Plato } from '../interfaces/Plato.interface';
+import { Semana } from '../interfaces/semana.interface';
 
 @Injectable({providedIn:'root'})
 export class MenusService {
@@ -15,6 +16,15 @@ platos = signal<Plato[]>([
     { id: 8, nombre: 'Arroz con Pollo', usado: false , categoria:2 }
   ]);
 
+semana = signal<Semana[]>([
+  {id:1, nombre:"Lunes"},
+  {id:2, nombre:"Martes"},
+  {id:3, nombre:"Miercoles"},
+  {id:4, nombre:"Jueves"},
+  {id:5, nombre:"Viernes"},
+  {id:6, nombre:"Sabado"},
+  {id:7, nombre:"Domingo"},
+]);
 
 marcarPlatoComoUsado (platomarcado : Plato): void{
       this.platos.update( platos =>
