@@ -2,6 +2,7 @@ import { Component, computed, inject, input, signal } from '@angular/core';
 import { DesplegableComponent } from '../../../components/desplegable/desplegable.component';
 import { Plato } from '../../../interfaces/Plato.interface';
 import { MenusService } from '../../../services/menus.service';
+import { Semana } from '../../../interfaces/semana.interface';
 
 @Component({
   selector: 'menu-dia',
@@ -16,14 +17,16 @@ export class MenuDia {
   categoriaSeleccionada = signal<number | null>(null);
   platoSeleccionado = signal<Map<number, Plato>>(new Map());
 
-  diaNombre = input<string>('');
+  diaSemana = input<Semana>();
 
   entradaSeleccionada = computed(() =>
-    this.platoSeleccionado()?.get(1) ?? null
+   // this.platoSeleccionado()?.get(1) ?? null
+    this.menuservice.menuGrid().find(m=>m.dia.id==this.diaSemana()?.id)?.entrada ?? null
   );
 
   fondoSeleccionado = computed(() =>
-    this.platoSeleccionado()?.get(2) ?? null
+    //this.platoSeleccionado()?.get(2) ?? null
+  this.menuservice.menuGrid().find(m=>m.dia.id==this.diaSemana()?.id)?.fondo ?? null
   );
 
   toggleBuscador(categoria: number): void {

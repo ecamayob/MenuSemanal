@@ -15,6 +15,9 @@ import { ToolBar } from '../../components/toolBar/toolBar';
 export default class MenuPage {
  menuservice = inject(MenusService);
 
-
+ngOnInit(): void {
+    // AQUÍ SE LLAMA: Carga los días, platos y el menú guardado al entrar a la pantalla
+    this.menuservice.cargarDatosIniciales();
+  }
 
 }

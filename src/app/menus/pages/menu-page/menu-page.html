@@ -1,6 +1,6 @@
 
-<tool-bar/>
 
+<tool-bar />
 
 <!-- Contenedor general centrado -->
 <div class="flex flex-col items-center w-full p-4">
@@ -8,7 +8,7 @@
   <div class="w-full max-w-xl space-y-4">
     @for (item of this.menuservice.semana(); track item.id) {
     <div class="mb-4">
-      <menu-dia [diaNombre]="item.nombre" />
+      <menu-dia [diaSemana]="item" />
 
     </div>
     }
