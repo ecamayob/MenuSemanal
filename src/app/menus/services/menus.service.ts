@@ -1,13 +1,19 @@
-import { Injectable, Service, signal } from '@angular/core';
+import { computed, Injectable, Service, signal } from '@angular/core';
 import { Plato } from '../interfaces/Plato.interface';
 import { DiaMenuGrid, MenuSemanalBD, Semana } from '../interfaces/semana.interface';
+import { menuSemanal } from '../interfaces/menuSemanal.interface';
 
 @Injectable({ providedIn: 'root' })
 export class MenusService {
 
   platos = signal<Plato[]>([]);
   semana = signal<Semana[]>([]);
+  menuSemanal = signal<menuSemanal[]>([]);
   menuGrid = signal<DiaMenuGrid[]>([]);
+
+constructor() {
+    this.cargarDatosIniciales();
+  }
 
   marcarPlatoComoUsado(platomarcado: Plato): void {
     this.platos.update(platos =>
@@ -23,8 +29,9 @@ export class MenusService {
 
   /***********************************/
 
-  cargarDatosIniciales() {
 
+  cargarDatosIniciales() {
+      console.log("cargando datos iniciales");
     this.semana.set([
       { id: 1, nombre: "Lunes" },
       { id: 2, nombre: "Martes" },
@@ -37,41 +44,45 @@ export class MenusService {
 
     this.platos.set([
       { id: 1, nombre: 'Ceviche', usado: false, categoria: 2 },
-      { id: 2, nombre: 'Ceviche mixto', usado: false, categoria: 2 },
-      { id: 3, nombre: 'Tiradito de pescado', usado: false, categoria: 2 },
+      { id: 2, nombre: 'Ceviche mixto', usado: true, categoria: 2 },
+      { id: 3, nombre: 'Tiradito de pescado', usado: true, categoria: 2 },
       { id: 4, nombre: 'Causa', usado: false, categoria: 1 },
-      { id: 5, nombre: 'Papa a la huancaina', usado: false, categoria: 1 },
-      { id: 6, nombre: 'Ensalada', usado: false, categoria: 1 },
+      { id: 5, nombre: 'Papa a la huancaina', usado: true, categoria: 1 },
+      { id: 6, nombre: 'Ensalada', usado: true, categoria: 1 },
       { id: 7, nombre: 'Lomo Saltado', usado: false, categoria: 2 },
       { id: 8, nombre: 'Arroz con Pollo', usado: false, categoria: 2 }
     ]);
 
-    const menusemanal: MenuSemanalBD[] = ([
+    this.menuSemanal.set ([
       { dia_id: 1, categoria_id: 1, plato_id: 5 },
       { dia_id: 1, categoria_id: 2, plato_id: 3 },
       { dia_id: 2, categoria_id: 2, plato_id: 2 },
       { dia_id: 2, categoria_id: 1, plato_id: 6 }
     ]);
 
- const menudia = this.semana().map(s => {
-    const regEntrada=  menusemanal.find(p => p.categoria_id == 1 && p.dia_id == s.id);
-    const regFondo=  menusemanal.find(p => p.categoria_id == 2 && p.dia_id == s.id);
+
+
+    const platosMap = new Map(this.platos().map(p => [p.id, p]));
+    const menuBD = this.menuSemanal();
+
+    const itemMenu=this.semana().map(dia => {
+      const regEntrada = menuBD.find(p => p.dia_id === dia.id && p.categoria_id === 1);
+      const regFondo = menuBD.find(p => p.dia_id === dia.id && p.categoria_id === 2);
 
       return {
-        dia:s,
-        // Buscamos el plato completo en el catálogo mediante su plato_id
-        entrada: regEntrada ? this.platos().find(p => p.id === regEntrada.plato_id) : undefined,
-        fondo: regFondo ? this.platos().find(p => p.id === regFondo.plato_id) : undefined
+        dia,
+        entrada: regEntrada ? platosMap.get(regEntrada.plato_id) : undefined,
+        fondo: regFondo ? platosMap.get(regFondo.plato_id) : undefined
       };
-    })
+    });
 
-    console.log(menudia);
-
-    this.menuGrid.set(menudia);
-
+    this.menuGrid.set(itemMenu);
 
 
   }
+
+
+
 
 
 
