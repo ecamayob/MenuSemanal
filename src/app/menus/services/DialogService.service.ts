@@ -26,7 +26,6 @@ export class DialogService {
       ...options
     });
     this.isOpen.set(true);
-
     return new Promise<boolean>((resolve) => {
       this.resolveRef = resolve;
     });
@@ -42,6 +41,7 @@ export class DialogService {
 
   private close(result: boolean): void {
     this.isOpen.set(false);
+      console.log(this.resolveRef);
     if (this.resolveRef) {
       this.resolveRef(result);
       this.resolveRef = undefined;

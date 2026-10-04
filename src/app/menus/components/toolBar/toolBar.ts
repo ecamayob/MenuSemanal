@@ -8,24 +8,34 @@ import { DialogService } from '../../services/DialogService.service';
   templateUrl: './toolBar.html',
 })
 export class ToolBar {
-menuservice= inject(MenusService);
-private dialogService = inject(DialogService);
+  menuservice = inject(MenusService);
+  private dialogService = inject(DialogService);
 
+  async GuardarMenu(): Promise<void> {
+    if (this.menuservice.menuGrid().length == 0) {
+      const confirmado = await this.dialogService.confirm({
+        title: 'Alerta',
+        message: 'Debe seleccionar un menu',
+      });
+      if (confirmado) {
+        return;
+      }
+    }
+
+    this.menuservice.guardarMenusemanal();
+  }
 
   async limpiar(): Promise<void> {
     const confirmado = await this.dialogService.confirm({
       title: '¿Estás seguro?',
       message: 'Esta acción reiniciará el menú semanal y los platos.',
       confirmText: 'Sí, limpiar',
-      cancelText: 'Cancelar'
+      cancelText: 'Cancelar',
     });
 
     if (confirmado) {
       this.menuservice.menuGrid.set([]);
-      this.menuservice.platos.update(platos =>
-        platos.map(p => ({ ...p, usado: false }))
-      );
+      this.menuservice.platos.update((platos) => platos.map((p) => ({ ...p, usado: false })));
     }
   }
-
 }
