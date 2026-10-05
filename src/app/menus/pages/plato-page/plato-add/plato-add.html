@@ -23,6 +23,7 @@
       <input
         type="text"
         (input)="this.nombreplato.set(txtnombre.value)"
+        [value]="this.nombreplato()"
         #txtnombre
         placeholder="Nombre del plato"
         class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
@@ -67,14 +68,14 @@
     <button
       type="button"
       (click)="cerrarFormulario(false)"
-      class="px-5 py-2 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+      class="px-5 py-2 bg-red-600 border border-slate-200 rounded-xl text-sm font-bold text-white hover:bg-red-500 transition-colors"
     >
       Cancelar
     </button>
     <button
       type="button"
       (click)="guardarPlato()"
-      class="px-5 py-2 bg-black text-white rounded-xl text-sm font-bold hover:bg-slate-800 transition-colors"
+      class="px-5 py-2 bg-green-700 text-white rounded-xl text-sm font-bold hover:bg-green-600 transition-colors"
     >
       Guardar plato
     </button>

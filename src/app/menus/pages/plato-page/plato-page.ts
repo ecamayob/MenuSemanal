@@ -12,7 +12,7 @@ import { PlatoAdd } from './plato-add/plato-add';
 })
 export default class PlatoPage {
   menuservice = inject(MenusService);
-  abrirForm = signal<boolean>(false);
+  showForm = signal<boolean>(false);
   busqueda = signal<string>('');
 
   platosfiltrados = computed(() => {
@@ -23,6 +23,6 @@ export default class PlatoPage {
   });
 
   abrirFormulario(value: boolean) {
-    this.abrirForm.set(value);
+    this.showForm.set(value);
   }
 }

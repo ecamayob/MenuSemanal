@@ -1,12 +1,12 @@
 <div class="max-w-4xl mx-auto p-6 space-y-6 bg-slate-50 min-h-screen">
   <!-- Barra Superior -->
   <div class="mb-4">
-    <toolBar-platos (openForm)="abrirFormulario($event)" (oBusqueda)="this.busqueda.set($event)"  />
+    <toolBar-platos (oBusqueda)="this.busqueda.set($event)" (addDish)="showForm.set(true)" />
   </div>
 
   <!-- Formulario Nuevo Plato -->
-  @if (this.abrirForm()) {
-    <plato-add  (openForm)="abrirFormulario($event)"/>
+  @if (this.showForm()) {
+    <plato-add (cancel)="showForm.set(false)" />
   }
 
   <!-- Catálogo de Platos -->
@@ -19,7 +19,7 @@
       class="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-visible shadow-sm"
     >
       @for (item of this.platosfiltrados(); track item.id) {
-        <plato-row [plato]="item" />
+        <plato-row [plato]="item" (cancel)="this.showForm.set(false)" />
       }
     </div>
   </div>

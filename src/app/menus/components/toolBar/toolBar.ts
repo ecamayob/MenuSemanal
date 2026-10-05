@@ -13,24 +13,32 @@ export class ToolBar {
 
   async GuardarMenu(): Promise<void> {
     if (this.menuservice.menuGrid().length == 0) {
-      const confirmado = await this.dialogService.confirm({
-        title: 'Alerta',
-        message: 'Debe seleccionar un menu',
+      await this.dialogService.open({
+        title: 'Info',
+        message: 'Debe seleccionar un menu.',
+        type: 'warning',
+        showCancel: false
       });
-      if (confirmado) {
-        return;
-      }
+      return;
     }
 
     this.menuservice.guardarMenusemanal();
+
+    await this.dialogService.open({
+        title: 'Exito',
+        message: 'Se guardo el menu con exito.',
+        type: 'success',
+        showCancel: false
+      });
   }
 
   async limpiar(): Promise<void> {
-    const confirmado = await this.dialogService.confirm({
-      title: '¿Estás seguro?',
+
+    const confirmado = await this.dialogService.open({
+      title: '¿Esta seguro de limpiar?',
       message: 'Esta acción reiniciará el menú semanal y los platos.',
-      confirmText: 'Sí, limpiar',
-      cancelText: 'Cancelar',
+      type: 'info',
+      showCancel: true
     });
 
     if (confirmado) {

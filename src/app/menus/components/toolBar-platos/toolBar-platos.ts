@@ -1,4 +1,5 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
+import { MenusService } from '../../services/menus.service';
 
 @Component({
   selector: 'toolBar-platos',
@@ -6,11 +7,13 @@ import { Component, output, signal } from '@angular/core';
   templateUrl: './toolBar-platos.html',
 })
 export class ToolBarPlatos {
-  openForm = output<boolean>();
+  menuservice= inject(MenusService);
+  //showForm=signal<boolean>(false);
+ addDish = output<void>();
   oBusqueda = output<string>();
 
-  abrirRegistroPlatos() {
-    this.openForm.emit(true);
+  abrirFormularioPlatos() {
+    this.addDish.emit();
   }
   actualizarBusqueda(value:string) {
     this.oBusqueda.emit(value);

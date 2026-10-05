@@ -1,50 +1,53 @@
 // dialog.service.ts
 import { Injectable, signal } from '@angular/core';
 
-export interface DialogOptions {
+export type ModalType = 'success' | 'warning' | 'error' | 'info';
+export interface ModalOptions {
   title: string;
   message: string;
-  confirmText?: string;
-  cancelText?: string;
+  type?: ModalType;
+  showCancel?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
-export class DialogService {
-  // Estado interno con Signals
-  isOpen = signal<boolean>(false);
-  options = signal<DialogOptions>({ title: '', message: '' });
+export class DialogService {// Signal para controlar si el modal se muestra o no y con qué datos
+  modalState = signal<ModalOptions & { isOpen: boolean }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'info',
+    showCancel: false
+  });
 
-  private resolveRef?: (value: boolean) => void;
+  private resolvePromise?: (value: boolean) => void;
 
-  /**
-   * Abre el modal y retorna una Promesa que resuelve `true` (aceptar) o `false` (cancelar).
-   */
-  confirm(options: DialogOptions): Promise<boolean> {
-    this.options.set({
-      confirmText: 'Aceptar',
-      cancelText: 'Cancelar',
-      ...options
+  // Método que abre el modal y retorna una promesa
+  open(options: ModalOptions): Promise<boolean> {
+    this.modalState.set({
+      isOpen: true,
+      title: options.title,
+      message: options.message,
+      type: options.type || 'info',
+      showCancel: options.showCancel ?? false
     });
-    this.isOpen.set(true);
+
     return new Promise<boolean>((resolve) => {
-      this.resolveRef = resolve;
+      this.resolvePromise = resolve;
     });
   }
 
-  confirmAction(): void {
+  confirm() {
     this.close(true);
   }
 
-  cancelAction(): void {
+  cancel() {
     this.close(false);
   }
 
-  private close(result: boolean): void {
-    this.isOpen.set(false);
-      console.log(this.resolveRef);
-    if (this.resolveRef) {
-      this.resolveRef(result);
-      this.resolveRef = undefined;
+  private close(result: boolean) {
+    this.modalState.update(state => ({ ...state, isOpen: false }));
+    if (this.resolvePromise) {
+      this.resolvePromise(result);
     }
   }
 }
