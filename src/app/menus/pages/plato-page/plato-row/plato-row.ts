@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { Plato } from '../../../interfaces/Plato.interface';
 import { DesplegableBotonesComponent } from '../../../components/desplegable-botones/desplegable-botones.component';
 
