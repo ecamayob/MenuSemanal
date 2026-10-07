@@ -10,6 +10,8 @@ export class MenusService {
   menuSemanal = signal<menuSemanal[]>([]);
   menuGrid = signal<DiaMenuGrid[]>([]);
 
+   platoEnEdicion = signal<Plato | null>(null);
+
   constructor() {
     this.cargarDatosIniciales();
   }

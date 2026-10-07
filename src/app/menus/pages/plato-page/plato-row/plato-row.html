@@ -32,7 +32,7 @@
 
 
             <!-- Botón 3 Puntos -->
-            <button type="button" (click)="toggleBotones()"
+            <button type="button"  (click)="toggleBotones()"
             class="p-1.5 rounded-lg text-slate-600 bg-slate-100 transition-colors focus:outline-none">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
@@ -41,7 +41,7 @@
 
             @if(mostrarBotones())
             {
-              <desplegable-botones />
+              <desplegable-botones [iplato]="plato()" (edit)="onEditar()" />
             }
 
 

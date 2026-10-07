@@ -25,11 +25,11 @@ export class ToolBar {
     this.menuservice.guardarMenusemanal();
 
     await this.dialogService.open({
-        title: 'Exito',
-        message: 'Se guardo el menu con exito.',
-        type: 'success',
-        showCancel: false
-      });
+      title: 'Exito',
+      message: 'Se guardo el menu con exito.',
+      type: 'success',
+      showCancel: false
+    });
   }
 
   async limpiar(): Promise<void> {

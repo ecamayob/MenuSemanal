@@ -6,20 +6,17 @@
 
   <!-- Formulario Nuevo Plato -->
   @if (this.showForm()) {
-    <plato-add (cancel)="showForm.set(false)" />
+  <plato-add (cancel)="showForm.set(false)" />
   }
 
   <!-- Catálogo de Platos -->
   <div class="space-y-3 mt-4">
-    <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider"
-      >CATÁLOGO ({{ this.menuservice.platos().length }})</span
-    >
+    <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider">CATÁLOGO ({{
+      this.menuservice.platos().length }})</span>
 
-    <div
-      class="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-visible shadow-sm"
-    >
+    <div class="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-visible shadow-sm">
       @for (item of this.platosfiltrados(); track item.id) {
-        <plato-row [plato]="item" (cancel)="this.showForm.set(false)" />
+      <plato-row [plato]="item" (cancel)="this.showForm.set(false)" (edit)="onEditar()" />
       }
     </div>
   </div>

@@ -1,33 +1,17 @@
-
-  <div class="flex items-center justify-between gap-4">
-    <div class="relative w-64">
-      <span
-        class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-      </span>
-      <input
-        type="text"
-        (input)="actualizarBusqueda(txtbusqueda.value)"
-        #txtbusqueda
-        placeholder="Buscar plato"
-        class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-      />
-    </div>
-
-    <button
-      type="button"
-      (click)="abrirFormularioPlatos()"
-      class="flex items-center gap-2 px-4 py-2 border border-blue-300 rounded-xl text-blue-600 font-medium text-sm hover:bg-blue-50 transition-colors"
-    >
-      <span>+</span> Agregar plato
-    </button>
+<div class="flex items-center justify-between gap-4">
+  <div class="relative w-64">
+    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </span>
+    <input type="text" (input)="actualizarBusqueda(txtbusqueda.value)" #txtbusqueda placeholder="Buscar plato"
+      class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
   </div>
 
+  <button type="button" (click)="abrirFormularioPlatos()"
+    class="flex items-center gap-2 px-4 py-2 border border-blue-300 rounded-xl text-blue-600 font-medium text-sm hover:bg-blue-50 transition-colors">
+    <span>+</span> Agregar plato
+  </button>
+</div>

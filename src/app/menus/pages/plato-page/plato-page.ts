@@ -19,10 +19,11 @@ export default class PlatoPage {
     const busqueda = this.busqueda().toLowerCase();
     return this.menuservice
       .platos()
-      .filter((plato) => plato.nombre.toLowerCase().includes(busqueda));
+      .filter((plato) => plato.nombre.toLowerCase().includes(busqueda))
+      .sort((a,b)=>b.id - a.id);
   });
 
-  abrirFormulario(value: boolean) {
-    this.showForm.set(value);
+  onEditar(){
+    this.showForm.set(true);
   }
 }
