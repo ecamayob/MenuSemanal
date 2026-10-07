@@ -32,8 +32,8 @@ export class PlatoAdd {
   cerrarFormulario(value: boolean) {
     this.cancel.emit();
     this.menuservice.platoEnEdicion.set(null);
-    //this.limpiarForm();
   }
+
   seleccionarCategoria(idcategoria: number) {
     this.idcategoria.set(idcategoria);
   }

@@ -10,6 +10,41 @@
       class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
   </div>
 
+  <!-- Filtro por tipo de plato -->
+<div class="flex items-center gap-2">
+  <button
+    type="button"
+    (click)="filtroTipo = 'todos'"
+    [ngClass]="filtroTipo === 'todos'
+      ? 'bg-slate-800 text-white border-slate-800'
+      : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'"
+    class="px-4 py-2 text-sm font-semibold rounded-full border transition-colors">
+    Todos
+  </button>
+
+  <button
+    type="button"
+    (click)="filtroTipo = 'entrada'"
+    [ngClass]="filtroTipo === 'entrada'
+      ? 'bg-amber-100 text-amber-800 border-amber-300'
+      : 'bg-white text-slate-600 border-slate-200 hover:bg-amber-50'"
+    class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-full border transition-colors">
+    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+    Entrada
+  </button>
+
+  <button
+    type="button"
+    (click)="filtroTipo = 'fondo'"
+    [ngClass]="filtroTipo === 'fondo'
+      ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+      : 'bg-white text-slate-600 border-slate-200 hover:bg-emerald-50'"
+    class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-full border transition-colors">
+    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+    Fondo
+  </button>
+</div>
+
   <button type="button" (click)="abrirFormularioPlatos()"
     class="flex items-center gap-2 px-4 py-2 border border-blue-300 rounded-xl text-blue-600 font-medium text-sm hover:bg-blue-50 transition-colors">
     <span>+</span> Agregar plato

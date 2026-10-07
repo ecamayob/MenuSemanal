@@ -13,9 +13,25 @@ export class DesplegableBotonesComponent {
   dialogService = inject(DialogService);
 
   iplato = input.required<Plato>();
-  edit= output<void>();
+  edit = output<void>();
+
+  editarPlato() {
+    this.menuservice.platoEnEdicion.set(this.iplato());
+    this.edit.emit();
+  }
 
   async eliminarPlato() {
+
+    if (this.iplato().usado) {
+      await this.dialogService.open({
+        title: 'No se puede Eliminar!!',
+        message: 'El plato esta seleccionado en el Menu Semanal.',
+        type: 'info',
+        showCancel: false
+      });
+      return;
+    }
+
     const confirmado = await this.dialogService.open({
       title: '¿Esta seguro de eliminar?',
       message: 'Esta acción eliminara el plato.',
@@ -31,9 +47,6 @@ export class DesplegableBotonesComponent {
 
   }
 
-  editarPlato() {
-    this.menuservice.platoEnEdicion.set(this.iplato());
-    this.edit.emit();
-  }
+
 
 }

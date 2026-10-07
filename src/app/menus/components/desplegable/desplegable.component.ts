@@ -28,9 +28,10 @@ export  class DesplegableComponent {
       const coincideTexto = !texto || plato.nombre.toLowerCase().includes(texto);
       // Coincidencia por categoría
       const coincideCategoria = cat === null || plato.categoria === cat;
-
       return coincideTexto && coincideCategoria;
-    });
+    })
+    .sort((a,b)=>Number(a.usado)- Number(b.usado));
+
   });
 
   actualizarBusqueda(valor: string): void {
