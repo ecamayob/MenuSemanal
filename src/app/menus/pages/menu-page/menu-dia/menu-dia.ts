@@ -19,9 +19,10 @@ export class MenuDia {
   diaSemana = input<Semana>();
 
   entradaSeleccionada = computed(
-    () =>
-      // this.platoSeleccionado()?.get(1) ?? null
-      this.menuservice.menuGrid().find((m) => m.dia.id == this.diaSemana()?.id)?.entrada ?? null,
+    () =>{
+      return this.menuservice.menuGrid().find((m) => m.dia.id == this.diaSemana()?.id)?.entrada ?? null;
+    }
+
   );
 
   fondoSeleccionado = computed(
@@ -77,8 +78,6 @@ export class MenuDia {
         },
       ];
     });
-
-    console.log(this.menuservice.menuGrid());
 
     // 5. Ocultar buscador y limpiar texto
     this.mostrarBuscador.set(false);

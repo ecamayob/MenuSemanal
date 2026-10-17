@@ -61,6 +61,15 @@ export class PlatoAdd {
         return platos.map(p => p.id == platoEdit.id ? { ...p, nombre, categoria: idcategoria } : p)
       }
       else {
+
+        this.menuservice.guardarPlatoBD({
+          id: maxId + 1,
+          nombre,
+          categoria: idcategoria,
+          usado: false,
+        })
+
+
         return [
           ...platos,
           {
