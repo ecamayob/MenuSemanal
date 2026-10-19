@@ -19,7 +19,7 @@ export class MenuDia {
   diaSemana = input<Semana>();
 
   entradaSeleccionada = computed(
-    () =>{
+    () => {
       return this.menuservice.menuGrid().find((m) => m.dia.id == this.diaSemana()?.id)?.entrada ?? null;
     }
 
@@ -41,17 +41,56 @@ export class MenuDia {
   }
 
   seleccionarPlato(plato: Plato): void {
-    // 1. Si ya está usado, no hace nada
     if (plato.usado) return;
-
-    // 2. Creamos la versión actualizada del plato
-    const platoActualizado: Plato = { ...plato, usado: true };
-
-    // 3. Actualizamos el arreglo global 'platos'
-    this.menuservice.marcarPlatoComoUsado(plato);
 
     const diaActual = this.diaSemana();
     if (!diaActual) return;
+
+    this.menuservice.asignarPlatoADia(plato, diaActual);
+
+    this.mostrarBuscador.set(false);
+  }
+
+  quitarPlato(idcategoria: number): void {
+    const diaActual = this.diaSemana();
+    if (!diaActual) return;
+
+    this.menuservice.quitarPlatoDelDia(idcategoria, diaActual.id);
+  }
+
+
+  quitarPlato22(idcategoria: number): void {
+    const diaActual = this.diaSemana();
+    if (!diaActual) return;
+
+
+
+    this.menuservice.menuGrid.update((menu) => {
+      return menu.map(m => {
+        if (m.dia.id == diaActual.id) {
+          const idplato = idcategoria == 1 ? m.entrada?.id : m.fondo?.id;
+          if (idplato) {
+            this.menuservice.liberarPlato(idplato);
+          }
+
+          return {
+            dia: m.dia,
+            entrada: idcategoria == 1 ? undefined : m.entrada,
+            fondo: idcategoria == 2 ? undefined : m.fondo,
+          };
+        }
+        return m;
+      });
+    });
+  }
+  seleccionarPlato22(plato: Plato): void {
+    // 1. Si ya está usado, no hace nada
+    if (plato.usado) return;
+    const diaActual = this.diaSemana();
+    if (!diaActual) return;
+
+    // 3. Actualizamos el arreglo global 'platos'
+    this.menuservice.marcarPlatoComoUsado(plato);
 
     this.menuservice.menuGrid.update((m) => {
       const existe = m.some((i) => i.dia.id == diaActual.id);
@@ -82,31 +121,5 @@ export class MenuDia {
     // 5. Ocultar buscador y limpiar texto
     this.mostrarBuscador.set(false);
   }
-
-  quitarPlato(idcategoria: number): void {
-    const diaActual = this.diaSemana();
-    if (!diaActual) return;
-
-
-
-    this.menuservice.menuGrid.update((menu) => {
-      return menu.map(m => {
-        if (m.dia.id == diaActual.id) {
-          const idplato= idcategoria==1 ? m.entrada?.id: m.fondo?.id;
-          if(idplato){
-            this.menuservice.liberarPlato(idplato);
-          }
-
-          return {
-            dia:m.dia,
-            entrada: idcategoria == 1 ? undefined : m.entrada,
-            fondo: idcategoria == 2 ? undefined : m.fondo,
-          };
-        }
-        return m;
-      });
-    });
-  }
-
 
 }

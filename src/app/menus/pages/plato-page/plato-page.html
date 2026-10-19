@@ -15,7 +15,7 @@
       this.menuservice.platos().length }})</span>
 
     <div class="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-visible shadow-sm">
-      @for (item of this.platosfiltrados(); track item.id) {
+      @for (item of platosfiltrados(); track item.id) {
       <plato-row [plato]="item" (cancel)="this.showForm.set(false)" (edit)="onEditar()" />
       }
     </div>

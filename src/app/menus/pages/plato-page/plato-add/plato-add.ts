@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, output, signal } from '@angular/co
 import { MenusService } from '../../../services/menus.service';
 import { DialogService } from '../../../services/DialogService.service';
 import { NgClass } from '../../../../../../node_modules/@angular/common/types/_common_module-chunk';
+import { Plato } from '../../../interfaces/Plato.interface';
 
 @Component({
   selector: 'plato-add',
@@ -40,10 +41,7 @@ export class PlatoAdd {
 
   async guardarPlato(): Promise<void> {
 
-    const nombre = this.nombreplato();
-    const idcategoria = this.idcategoria();
-
-    if (!nombre) {
+    if (!this.nombreplato()) {
       await this.dialogService.open({
         title: 'Alerta!!',
         message: 'Debe ingresar el nombre del plato',
@@ -53,45 +51,29 @@ export class PlatoAdd {
       return;
     }
 
-    this.menuservice.platos.update((platos) => {
-      // Generar un ID seguro basado en el valor máximo actual
-      const maxId = platos.reduce((max, p) => (p.id > max ? p.id : max), 0);
-      const platoEdit = this.menuservice.platoEnEdicion();
-      if (platoEdit) {
-        return platos.map(p => p.id == platoEdit.id ? { ...p, nombre, categoria: idcategoria } : p)
-      }
-      else {
+    const nuevoplato: Plato = {
+      id: 0,
+      nombre: this.nombreplato(),
+      categoria: this.idcategoria(),
+      usado: false
+    };
 
-        this.menuservice.guardarPlatoBD({
-          id: maxId + 1,
-          nombre,
-          categoria: idcategoria,
-          usado: false,
-        })
+    const platoEdit = this.menuservice.platoEnEdicion();
+    if (platoEdit) {
+      this.menuservice.editarPlatoBD({...nuevoplato,id:platoEdit.id});
+    }
+    else {
+      this.menuservice.guardarPlatoBD(nuevoplato);
 
-
-        return [
-          ...platos,
-          {
-            id: maxId + 1,
-            nombre,
-            categoria: idcategoria,
-            usado: false,
-          },
-        ];
-      }
-    });
-
-
-    this.limpiarForm();
-    this.cerrarFormulario(false);
+    }
     await this.dialogService.open({
       title: 'Éxito',
       message: 'El plato se guardó con éxito.',
       type: 'success',
       showCancel: false // En éxito no suele hacer falta el botón Cancelar
     });
-
+    this.limpiarForm();
+    this.cerrarFormulario(false);
   }
 
   limpiarForm() {

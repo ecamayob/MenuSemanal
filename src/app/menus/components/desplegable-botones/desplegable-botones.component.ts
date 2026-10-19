@@ -40,9 +40,7 @@ export class DesplegableBotonesComponent {
     });
 
     if (confirmado) {
-      this.menuservice.platos.update(plato =>
-        plato.filter(p => p.id != this.iplato().id)
-      );
+      this.menuservice.eliminarPlatoBD(this.iplato().id);
     }
 
   }
