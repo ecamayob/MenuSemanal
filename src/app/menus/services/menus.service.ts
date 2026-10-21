@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, Service, signal } from '@angular/core';
 import { Plato, PlatoApiDto } from '../interfaces/Plato.interface';
 import { DiaMenuGrid, MenuSemanalBD, Semana } from '../interfaces/semana.interface';
-import { menuSemanal } from '../interfaces/menuSemanal.interface';
+import { MenuSemanaApiDto, menuSemanal } from '../interfaces/menuSemanal.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { firstValueFrom } from 'rxjs';
@@ -20,17 +20,17 @@ export class MenusService {
     this.cargarDatosIniciales();
   }
 
-  marcarPlatoComoUsado(platomarcado: Plato): void {
-    if (platomarcado.usado) return;
+  marcarPlatoComoUsado(idplato: number): void {
+    //if (platomarcado.usado) return;
 
     this.platos.update((platos) =>
-      platos.map((p) => (p.id == platomarcado.id ? { ...p, usado: true } : p)),
+      platos.map((p) => (p.id == idplato ? { ...p, usado: true } : p)),
     );
   }
 
   asignarPlatoADia(plato: Plato, diaActual: Semana) {
 
-    this.marcarPlatoComoUsado(plato);
+    this.marcarPlatoComoUsado(plato.id);
 
     this.menuGrid.update((m) => {
       const existe = m.some((i) => i.dia.id == diaActual.id);
@@ -92,29 +92,7 @@ export class MenusService {
     console.log('cargando datos iniciales');
     await this.cargarSemana();
     await this.cargarPlatos();
-
-    this.menuSemanal.set([
-      { dia_id: 1, categoria_id: 1, plato_id: 1 },
-      /* { dia_id: 1, categoria_id: 2, plato_id: 3 },
-       { dia_id: 2, categoria_id: 2, plato_id: 2 },
-       { dia_id: 2, categoria_id: 1, plato_id: 6 },*/
-    ]);
-
-    const platosMap = new Map(this.platos().map((p) => [p.id, p]));
-    const menuBD = this.menuSemanal();
-
-    const itemMenu = this.semana().map((dia) => {
-      const regEntrada = menuBD.find((p) => p.dia_id === dia.id && p.categoria_id === 1);
-      const regFondo = menuBD.find((p) => p.dia_id === dia.id && p.categoria_id === 2);
-
-      return {
-        dia,
-        entrada: regEntrada ? platosMap.get(regEntrada.plato_id) : undefined,
-        fondo: regFondo ? platosMap.get(regFondo.plato_id) : undefined,
-      };
-    });
-
-    this.menuGrid.set(itemMenu);
+    await this.cargarMenuSemanal();
   }
 
   async cargarSemana(): Promise<void> {
@@ -146,13 +124,63 @@ export class MenusService {
     }
   };
 
-  guardarMenusemanal() {
+  async cargarMenuSemanal(): Promise<void> {
+    try {
+      const datos = await firstValueFrom(this.http.get<MenuSemanaApiDto[]>(`${environment.MenuApiUrl}/MenuSemana`));
+
+      const menuSemanalMapeados: menuSemanal[] = datos.map(item => ({
+        id: item.id,
+        dia_id: item.idDia,
+        categoria_id: item.idCategoria,
+        plato_id: item.idPlato,
+        usuario_id:item.idUsuario
+      }));
+
+      this.menuSemanal.set(menuSemanalMapeados);
+      //marcar los platos como usados
+      this.menuSemanal().forEach(menu=>{
+        this.marcarPlatoComoUsado(menu.plato_id);
+      });
+
+      const menuBD = this.menuSemanal();
+
+      const platosMap = new Map(this.platos().map((p) => [p.id, p]));
+
+      const itemMenu = this.semana().map((dia) => {
+        const regEntrada = menuBD.find((p) => p.dia_id === dia.id && p.categoria_id === 1);
+        const regFondo = menuBD.find((p) => p.dia_id === dia.id && p.categoria_id === 2);
+        return {
+          dia,
+          entrada: regEntrada ? platosMap.get(regEntrada.plato_id) : undefined,
+          fondo: regFondo ? platosMap.get(regFondo.plato_id) : undefined,
+        };
+      });
+
+      this.menuGrid.set(itemMenu);
+
+    } catch (error) {
+      console.error('Error al cargar el MenuSemanal', error);
+      throw error;
+    }
+  }
+
+  async guardarMenusemanal(): Promise<void> {
     const resultado = this.menuGrid().flatMap(({ dia, entrada, fondo }) => [
-      ...(entrada ? [{ dia_id: dia.id, categoria_id: 1, plato_id: entrada.id }] : []),
-      ...(fondo ? [{ dia_id: dia.id, categoria_id: 2, plato_id: fondo.id }] : []),
+      ...(entrada ? [{ dia_id: dia.id, categoria_id: 1, plato_id: entrada.id, usuario_id: 1 }] : []),
+      ...(fondo ? [{ dia_id: dia.id, categoria_id: 2, plato_id: fondo.id, usuario_id: 1 }] : []),
     ]);
 
     this.menuSemanal.set(resultado);
+
+    const menuBD: MenuSemanaApiDto[] = this.menuSemanal().map(item => ({
+      id: 0,
+      idDia: item.dia_id,
+      idCategoria: item.categoria_id,
+      idPlato: item.plato_id,
+      idUsuario: item.usuario_id
+    }))
+    console.log(menuBD);
+    const datos = await firstValueFrom(this.http.post(`${environment.MenuApiUrl}/MenuSemana/reemplazar`, menuBD));
 
   };
 

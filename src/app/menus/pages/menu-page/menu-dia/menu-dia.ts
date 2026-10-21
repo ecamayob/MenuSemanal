@@ -83,43 +83,6 @@ export class MenuDia {
       });
     });
   }
-  seleccionarPlato22(plato: Plato): void {
-    // 1. Si ya está usado, no hace nada
-    if (plato.usado) return;
-    const diaActual = this.diaSemana();
-    if (!diaActual) return;
 
-    // 3. Actualizamos el arreglo global 'platos'
-    this.menuservice.marcarPlatoComoUsado(plato);
-
-    this.menuservice.menuGrid.update((m) => {
-      const existe = m.some((i) => i.dia.id == diaActual.id);
-
-      if (existe) {
-        return m.map((e) => {
-          if (e.dia.id == diaActual.id) {
-            return {
-              ...e,
-              entrada: plato.categoria == 1 ? plato : e.entrada,
-              fondo: plato.categoria == 2 ? plato : e.fondo,
-            };
-          }
-          return e;
-        });
-      }
-
-      return [
-        ...m,
-        {
-          dia: this.diaSemana()!,
-          entrada: plato.categoria == 1 ? plato : undefined,
-          fondo: plato.categoria == 2 ? plato : undefined,
-        },
-      ];
-    });
-
-    // 5. Ocultar buscador y limpiar texto
-    this.mostrarBuscador.set(false);
-  }
 
 }
